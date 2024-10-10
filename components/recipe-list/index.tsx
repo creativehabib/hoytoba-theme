@@ -1,7 +1,19 @@
 import Link from "next/link";
 import {Card, CardContent} from "@/components/ui/card";
+// Define an interface for a recipe item
+interface RecipeItem {
+    id: string;
+    image: string;
+    name: string;
+    rating: number;
+    cuisine: string;
+}
 
-export default function RecipeList({ recipeList }){
+// Define the props interface
+interface RecipeListProps {
+    recipeList: RecipeItem[];
+}
+export default function RecipeList({ recipeList }:RecipeListProps){
     console.log(recipeList)
     return (
         <div>
