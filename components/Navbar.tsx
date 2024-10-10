@@ -1,6 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import { Search, Menu, X } from "lucide-react";
+import Link from "next/link";
 
 const Navbar = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -12,30 +13,31 @@ const Navbar = () => {
     return (
         <>
             {/* Navbar */}
-            <div className="navbar bg-white shadow-md px-6 sm:px-10 w-full fixed top-0 left-0 z-50 py-4">
+            <div className="navbar bg-white shadow-md px-6 lg:px-10 w-full fixed top-0 left-0 z-50 py-4">
                 <div className="flex items-center justify-between max-w-7xl mx-auto">
-                    
-                    {/* Hamburger Menu (Mobile) */}
-                    <div className="sm:hidden">
+
+                    {/* Hamburger Menu (Small to Medium Screens) */}
+                    <div className="lg:hidden"> {/* Show mobile menu from md and below */}
                         <button onClick={toggleDrawer} className="focus:outline-none">
                             <Menu size={24} />
                         </button>
                     </div>
-                    
+
                     {/* Logo */}
                     <div>
-                        <img
-                            className="w-12 h-12 rounded-full"
-                            src="https://cms.bibijaan.com/wp-content/uploads/2023/12/logo_v1.5_round.png"
-                            alt="Logo"
-                        />
+                        <Link href={'/'}>
+                            <img
+                                className="w-12 h-12 rounded-full"
+                                src="https://cms.bibijaan.com/wp-content/uploads/2023/12/logo_v1.5_round.png"
+                                alt="Logo"
+                            />
+                        </Link>
                     </div>
 
-
-                    {/* Desktop Menu */}
-                    <div className="hidden sm:flex flex-row items-center text-gray-600 font-bold space-x-5">
+                    {/* Menu for Large Screens */}
+                    <div className="hidden lg:flex flex-row items-center text-gray-600 font-bold space-x-5">
                         <ul className="flex flex-row items-center space-x-5">
-                            <li className="nav-item">মূলপাতা</li>
+                            <li className="nav-item"><Link href={'/'}>মূলপাতা</Link></li>
                             <li className="nav-item">মিডিয়া</li>
                             <li className="nav-item">দেওয়াল চিত্র</li>
                             <li className="nav-item">ইতিহাসের পাতা</li>
@@ -55,8 +57,8 @@ const Navbar = () => {
                 </div>
             </div>
 
-            {/* Mobile Left Drawer */}
-            <div className={`fixed inset-0 z-50 transition-transform duration-300 transform ${isDrawerOpen ? "translate-x-0" : "-translate-x-full"} sm:hidden`}>
+            {/* Mobile Left Drawer for Small to Medium Screens */}
+            <div className={`fixed inset-0 z-50 transition-transform duration-300 transform ${isDrawerOpen ? "translate-x-0" : "-translate-x-full"} lg:hidden`}>
                 {/* Drawer Content */}
                 <div className="w-64 bg-white h-full shadow-md z-50 relative">
                     <div className="flex items-center justify-between p-4">
@@ -70,7 +72,7 @@ const Navbar = () => {
                         </button>
                     </div>
                     <ul className="flex flex-col space-y-3 text-gray-600 font-bold p-4">
-                        <li className="nav-item">মূলপাতা</li>
+                        <li className="nav-item"><Link href={'/'}>মূলপাতা</Link></li>
                         <li className="nav-item">মিডিয়া</li>
                         <li className="nav-item">দেওয়াল চিত্র</li>
                         <li className="nav-item">ইতিহাসের পাতা</li>
