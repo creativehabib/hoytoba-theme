@@ -1,7 +1,6 @@
 "use client"
 import React, { useState } from 'react';
 import { Search, Menu, X } from "lucide-react";
-import Link from "next/link";
 
 const Navbar = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -13,8 +12,8 @@ const Navbar = () => {
     return (
         <>
             {/* Navbar */}
-            <div className="navbar bg-white shadow-md px-6 sm:px-10 max-w-7xl mx-auto py-4">
-                <div className="flex items-center justify-between">
+            <div className="navbar bg-white shadow-md px-6 sm:px-10 w-full fixed top-0 left-0 z-50 py-4">
+                <div className="flex items-center justify-between max-w-7xl mx-auto">
                     
                     {/* Hamburger Menu (Mobile) */}
                     <div className="sm:hidden">
@@ -25,20 +24,18 @@ const Navbar = () => {
                     
                     {/* Logo */}
                     <div>
-                        <Link href={'/'}>
-                            <img
-                                className="w-12 h-12 rounded-full"
-                                src="https://cms.bibijaan.com/wp-content/uploads/2023/12/logo_v1.5_round.png"
-                                alt="Logo"
-                            />
-                        </Link>
+                        <img
+                            className="w-12 h-12 rounded-full"
+                            src="https://cms.bibijaan.com/wp-content/uploads/2023/12/logo_v1.5_round.png"
+                            alt="Logo"
+                        />
                     </div>
 
 
                     {/* Desktop Menu */}
                     <div className="hidden sm:flex flex-row items-center text-gray-600 font-bold space-x-5">
                         <ul className="flex flex-row items-center space-x-5">
-                            <li className="nav-item"><Link href={'/'}>মূলপাতা</Link></li>
+                            <li className="nav-item">মূলপাতা</li>
                             <li className="nav-item">মিডিয়া</li>
                             <li className="nav-item">দেওয়াল চিত্র</li>
                             <li className="nav-item">ইতিহাসের পাতা</li>
@@ -73,7 +70,7 @@ const Navbar = () => {
                         </button>
                     </div>
                     <ul className="flex flex-col space-y-3 text-gray-600 font-bold p-4">
-                        <li className="nav-item"><Link href={'/'}>মূলপাতা</Link></li>
+                        <li className="nav-item">মূলপাতা</li>
                         <li className="nav-item">মিডিয়া</li>
                         <li className="nav-item">দেওয়াল চিত্র</li>
                         <li className="nav-item">ইতিহাসের পাতা</li>
