@@ -75,7 +75,7 @@ export default function Home() {
                           <div className="px-6 py-4">
                               <p className="flex items-center space-x-1"><Feather size={12}/> <span>Bujhtesina Bishoyta</span></p>
                               <div className="mt-5 leading-7 text-justify mb-12">
-                                  <p>একটা এপ ইন্সটল করার সময় টার্মস এন্ড কন্ডিশন থাকে, সেখানে "I agree" দিলেই কেবল আপনাকে এপটি ইন্সটল করার অনুমতি দেওয়া হবে। অন্যথায় আপনি যেই হোন না কেন, এপটি আপনাকে প্রবেশাধিকার দেবে না। একটা কো...</p>
+                                  <p>একটা এপ ইন্সটল করার সময় টার্মস এন্ড কন্ডিশন থাকে, সেখানে &#34;I agree&#34; দিলেই কেবল আপনাকে এপটি ইন্সটল করার অনুমতি দেওয়া হবে। অন্যথায় আপনি যেই হোন না কেন, এপটি আপনাকে প্রবেশাধিকার দেবে না। একটা কো...</p>
                               </div>
                               <div className="text-sm text-gray-900 flex space-x-2 items-center px-6 py-4 absolute left-0 right-0 bottom-0">
                                   <Calendar size={12}/>
@@ -98,7 +98,7 @@ export default function Home() {
                           <div className="px-6 py-4">
                               <p className="flex items-center space-x-1"><Feather size={12}/> <span>Bujhtesina Bishoyta</span></p>
                               <div className="mt-5 leading-7 text-justify mb-12">
-                                  <p>কলেজের সেই দুরন্ত সময়ে বিপ্লবের এক শিহরণ নিয়ে 'থ্রি ইডিয়টস" মুভিটা দেখেছিলাম। তুখোড় মেধাবি এক ছেলে রানচোড় দাস একের পর এক সমাজ, শিক্ষাব্যবস্থা, আমাদের চিন্তাচেতনার ভুলগুলো চোখে আঙুল দিয়...</p>
+                                  <p>কলেজের সেই দুরন্ত সময়ে বিপ্লবের এক শিহরণ নিয়ে &#39;থ্রি ইডিয়টস&#34; মুভিটা দেখেছিলাম। তুখোড় মেধাবি এক ছেলে রানচোড় দাস একের পর এক সমাজ, শিক্ষাব্যবস্থা, আমাদের চিন্তাচেতনার ভুলগুলো চোখে আঙুল দিয়...</p>
                               </div>
                               <div className="text-sm text-gray-900 flex space-x-2 items-center px-6 py-4 absolute left-0 right-0 bottom-0">
                                   <Calendar size={12}/>

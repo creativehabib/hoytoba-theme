@@ -3,9 +3,8 @@ import RecipeDetailsItem from "@/components/RecipeDetails";
 async function fetchRecipeDetails(currentRecipeId: string) {
     try {
         const apiResponse = await fetch(`https://dummyjson.com/recipes/${currentRecipeId}`)
-        const data = await apiResponse.json()
-        return data;
-    } catch (e:any) {
+        return await apiResponse.json();
+    } catch (e:never) {
         throw new Error(`Failed to fetch recipe details ${e}`);
     }
 }
