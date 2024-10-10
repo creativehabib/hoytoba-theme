@@ -4,7 +4,7 @@ async function fetchRecipeDetails(currentRecipeId: string) {
     try {
         const apiResponse = await fetch(`https://dummyjson.com/recipes/${currentRecipeId}`)
         return await apiResponse.json();
-    } catch (e:any) {
+    } catch (e) {
         throw new Error(`Failed to fetch recipe details ${e}`);
     }
 }
