@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
 
-export default function RecipeDetailsItem({getRecipeDetails}) {
+export default function RecipeDetailsItem({getRecipeDetails}:any) {
     return (
         <div>
             <div className="p-6 lg:max-w-6xl max-w-2xl mx-auto">
