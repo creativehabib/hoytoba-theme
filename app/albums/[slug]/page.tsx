@@ -1,4 +1,5 @@
 import Link from "next/link";
+import {Albums} from "@/types/Post";
 
 interface AlbumParams {
     params: {
@@ -6,7 +7,7 @@ interface AlbumParams {
     };
 }
 
-async function fetchAlbumDetails(currentAlbumId: string | undefined) {
+async function fetchAlbumDetails(currentAlbumId: string | undefined) :Promise<Albums> {
     try {
         const apiResponse = await fetch(`https://api.bibijaan.com/v1/media/album/slug/${currentAlbumId}/content`);
         return await apiResponse.json();
