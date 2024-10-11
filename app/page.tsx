@@ -16,7 +16,7 @@ export default async function Home() {
                   <Music/>
                   <p>Media Albums</p>
               </div>
-              <Link href={'/'} className="font-extrabold text-gray-600"><span>View All</span></Link>
+              <Link href={'/albums'} className="font-extrabold text-gray-600"><span>View All</span></Link>
           </div>
 
           {/* Album grid */}

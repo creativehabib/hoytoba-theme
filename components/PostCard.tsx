@@ -3,6 +3,7 @@ import Link from "next/link";
 import {Calendar, Clock, Feather} from "lucide-react";
 import React from "react";
 import {Post} from "@/types/Post";
+import Image from "next/image";
 
 type PostCardProps = {
     post: Post;
@@ -14,8 +15,7 @@ export default function PostCard({post}: PostCardProps){
                 <Link href={''}>
                     <h3 className="my-4 mx-5 text-xl">{post.post_title}</h3>
                     <div className="w-full h-60">
-                        <img src={post.thumbnail_url}
-                             className="h-full w-full object-cover"/>
+                        <Image src={post.thumbnail_url} alt={post.post_title} width={100} height={100} className="h-full w-full object-cover"/>
                     </div>
                     <div className="px-6 py-4">
                         <p className="flex items-center space-x-1"><Feather size={12}/>
