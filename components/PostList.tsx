@@ -13,11 +13,13 @@ const PostList = ({ initialPosts }: PostListProps) => {
     const [offset, setOffset] = useState(POSTS_PER_PAGE);
     const [posts, setPosts] = useState<Post[]>(initialPosts);
     const [hasMoreData, setHasMoreData] = useState<boolean>(true);
+    const [loading, setLoading] = useState(false)
 
     const loadMorePosts = async () => {
+        setLoading(true)
         if(hasMoreData) {
             const apiPosts = await getPosts(offset, POSTS_PER_PAGE)
-
+            setLoading(false)
             if(!apiPosts.length) {
                 setHasMoreData(false)
             }
@@ -32,6 +34,18 @@ const PostList = ({ initialPosts }: PostListProps) => {
                 {posts.map((post) => (
                     <PostCard key={post.id} post={post} />
                 ))}
+            </div>
+            <div className="text-center mt-5">
+                {hasMoreData ? (
+                <button
+                    className="px-4 py-3 bg-slate-500 hover:bg-slate-600 text-slate-50 rounded-md"
+                    onClick={loadMorePosts}
+                >
+                    {loading ? 'Loading...' : 'Load More Posts'}
+                </button>
+                ) : (
+                <p className="text-slate-600">No more posts to load</p>
+                )}
             </div>
         </div>
     );

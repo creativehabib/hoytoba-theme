@@ -1,22 +1,17 @@
 // actions / getPosts.ts
 
-import { Post } from "@/types/Post"
-import {getApiUrl} from "@/lib/getApiUrl";
+import {Album} from "@/types/Post"
 import {handleError} from "@/lib/handleError";
 import {shuffleArray} from "@/lib/utils";
+import {API_URL} from "@/config/constant";
 
 
-export const getPosts = async (
-    offset: number,
-    limit: number
-): Promise<Post[]> => {
-    const url = getApiUrl(offset,limit)
-
+export const getAlbums = async ():Promise<Album[]> => {
     try {
-        const response = await fetch(url)
+        const response = await fetch(`${API_URL}/media/album`)
         const data = await response.json()
 
-        const randomData = shuffleArray(data.data.posts)
+        const randomData = shuffleArray(data)
 
         if(!response.ok){
             throw await handleError(response)

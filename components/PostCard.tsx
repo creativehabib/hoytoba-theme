@@ -2,7 +2,7 @@ import {Card, CardContent} from "@/components/ui/card";
 import Link from "next/link";
 import {Calendar, Clock, Feather} from "lucide-react";
 import React from "react";
-import {Post, Posts} from "@/types/Post";
+import {Post} from "@/types/Post";
 
 type PostCardProps = {
     post: Post;

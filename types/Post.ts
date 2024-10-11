@@ -22,7 +22,19 @@ export interface Author {
     name: string;
 }
 
-export interface Posts {
+export interface Album {
     id: number,
-    post_title: string
+    slug: string,
+    title: string,
+    english: string,
+    desc: string,
+    thumbnail_url: string,
+    r2_base_url: string,
+    album_type: string,
+    language: string,
+    author_id: number,
+    author_uuid: string,
+    status: string,
+    created_at: string,
+    updated_at: string,
 }
