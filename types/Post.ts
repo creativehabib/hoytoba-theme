@@ -38,3 +38,28 @@ export interface Album {
     created_at: string,
     updated_at: string,
 }
+
+export interface AlbumContents {
+    id: number,
+    slug: string,
+    title: string,
+    english: string,
+    desc: string,
+    content_type: string,
+    album_id: number,
+    album_uuid: string,
+    thumbnail_url: string,
+    stream_url: string,
+    site: string,
+    post_id: string,
+    post_type: string,
+    post_title: string,
+    file_extension: string,
+    duration: number,
+    size: number,
+    sha: string,
+    status: string,
+    created_at: string,
+    updated_at: string,
+    deleted_at: string
+}
