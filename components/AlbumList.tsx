@@ -22,7 +22,7 @@ const AlbumList = ({initialAlbums}:AlbumListProps) => {
                                         height={100}
                                         priority={true}
                                         style={{ width: '70%', height: 'auto' }} // Maintain aspect ratio
-                                        className="mx-auto rounded-xl"
+                                        className="mx-auto rounded-xl shadow"
                                     />
                                     <p className="text-center text-gray-500 mt-2">{album.title}</p>
                                 </Link>
