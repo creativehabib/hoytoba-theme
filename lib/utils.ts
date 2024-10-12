@@ -13,25 +13,11 @@ export function shuffleArray (array: any[]){
   return array;
 }
 
-export function formatDuration(durationInSeconds: number) {
-  if (isNaN(durationInSeconds) || durationInSeconds < 0) {
-    return '0:00';
-  }
 
-  const minutes = Math.floor(durationInSeconds / 60);
-  const seconds = Math.floor(durationInSeconds % 60);
-
-  const formattedSeconds = seconds.toString().padStart(2, '0');
-
-  return `${minutes}:${formattedSeconds}`;
+export function formatDuration(seconds: number){
+  const hrs = Math.floor(seconds / 3600);
+  const mins = Math.floor((seconds % 3600) / 60);
+  const secs = seconds % 60;
+  return `${hrs > 0 ? `${hrs}h ` : ''}${mins}m ${secs}s`;
 }
 
-export function calculateTotalDuration(contents: any) {
-  const totalSeconds = contents.reduce((acc:any, content:any) => acc + content.duration, 0);
-
-  const hours = Math.floor(totalSeconds / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
-
-  return `${hours}h ${minutes}m ${seconds}s`;
-};

@@ -7,8 +7,14 @@ const nextConfig = {
                 hostname: 'cms.bibijaan.com',
                 port: '',
                 pathname: '/**'
+            },
+            {
+                protocol: 'https',
+                hostname: 'storage.hoytoba.com', // Add your new hostname here
+                port: '',
+                pathname: '/**'
             }
-        ]
+        ],
     },
     eslint: {
         ignoreDuringBuilds: true,
