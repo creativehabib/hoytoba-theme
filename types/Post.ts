@@ -39,6 +39,27 @@ export interface Album {
     updated_at: string,
 }
 
+export interface Albums{
+    album: {
+        id: number,
+        slug: string,
+        title: string,
+        english: string,
+        desc: string,
+        thumbnail_url: string,
+        r2_base_url: string,
+        album_type: string,
+        language: string,
+        author_id: number,
+        author_uuid: string,
+        status: string,
+        created_at: string,
+        updated_at: string,
+        deleted_at: string
+    };
+    contents: AlbumContents[];
+}
+
 export interface AlbumContents {
     id: number,
     slug: string,
@@ -62,24 +83,4 @@ export interface AlbumContents {
     created_at: string,
     updated_at: string,
     deleted_at: string
-}
-export interface Albums{
-    album: {
-        id: number,
-        slug: string,
-        title: string,
-        english: string,
-        desc: string,
-        thumbnail_url: string,
-        r2_base_url: string,
-        album_type: string,
-        language: string,
-        author_id: number,
-        author_uuid: string,
-        status: string,
-        created_at: string,
-        updated_at: string,
-        deleted_at: string
-    };
-    contents: AlbumContents[];
 }

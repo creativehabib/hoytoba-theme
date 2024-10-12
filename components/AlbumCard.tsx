@@ -15,7 +15,7 @@ const AlbumCard = ({initialAlbums}:AlbumListProps) => {
                     limitedAlbum.map(album => 
                         <div key={album.id} className="hover:bg-sky-100 transition duration-300 hover:shadow p-2 rounded-xl mb-0">
                             <Link href={`/albums/${album.slug}`}>
-                                <Image src={album.thumbnail_url} alt={album.title} width={180} height={100} className="object-cover h-40 mx-auto rounded-xl"/>
+                                <Image src={album.thumbnail_url} alt={album.title} width={180} height={100} className="mx-auto rounded-xl"/>
                                 <p className="text-center text-gray-500 mt-2">{album.title}</p>
                             </Link>
                         </div>

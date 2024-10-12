@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { Maximize, Menu, Music, Settings} from "lucide-react";
+import {Music} from "lucide-react";
 import PostList from "@/components/PostList";
 import {getPosts} from "@/components/actions/getPosts";
 import {POSTS_PER_PAGE} from "@/config/constant";
 import {getAlbums} from "@/components/actions/getAlbums";
 import AlbumCard from "@/components/AlbumCard";
+import SettingIcon from "@/components/SettingIcon";
 
 export default async function Home() {
     const initialPost = await getPosts(0, POSTS_PER_PAGE);
@@ -22,12 +23,8 @@ export default async function Home() {
           {/* Album grid */}
           <AlbumCard initialAlbums={initialAlbum}/>
 
-
-          <div className="flex items-center justify-end mt-3 mb-4 space-x-1 text-teal-900 font-extrabold">
-              <button className="hover:text-teal-600"><Menu/></button>
-              <button className="hover:text-teal-600"><Maximize/></button>
-              <button className="hover:text-teal-600"><Settings/></button>
-          </div>
+        {/* Setting Icons */}
+        <SettingIcon/>          
 
           {/* post grid */}
           <PostList initialPosts={initialPost}/>
