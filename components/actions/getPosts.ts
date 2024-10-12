@@ -4,13 +4,11 @@ import { Post } from "@/types/Post"
 import {getApiUrl} from "@/lib/getApiUrl";
 import {handleError} from "@/lib/handleError";
 import {shuffleArray} from "@/lib/utils";
+import {POSTS_PER_PAGE} from "@/config/constant";
 
 
-export const getPosts = async (
-    offset: number,
-    limit: number
-): Promise<Post[]> => {
-    const url = getApiUrl(offset,limit)
+export const getPosts = async () => {
+    const url = getApiUrl(POSTS_PER_PAGE)
 
     try {
         const response = await fetch(url)

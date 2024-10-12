@@ -32,7 +32,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
        suppressHydrationWarning={true}>
       <Navbar/>
-      <main className="container max-w-7xl mx-auto mt-24 px-4 lg:px-10 sm:px-4 md:px-8">
+      <main className="container max-w-7xl mx-auto px-4 mt-24 lg:px-10 sm:px-4 md:px-8">
         <Suspense fallback={<Loading/>}>{children}</Suspense>
       </main>
       </body>

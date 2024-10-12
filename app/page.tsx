@@ -1,14 +1,11 @@
 import Link from "next/link";
 import {Music} from "lucide-react";
 import PostList from "@/components/PostList";
-import {getPosts} from "@/components/actions/getPosts";
-import {POSTS_PER_PAGE} from "@/config/constant";
 import {getAlbums} from "@/components/actions/getAlbums";
 import AlbumCard from "@/components/AlbumCard";
 import SettingIcon from "@/components/SettingIcon";
 
 export default async function Home() {
-    const initialPost = await getPosts(0, POSTS_PER_PAGE);
     const initialAlbum = await getAlbums();
   return (
       <div className="">
@@ -27,7 +24,7 @@ export default async function Home() {
         <SettingIcon/>          
 
           {/* post grid */}
-          <PostList initialPosts={initialPost}/>
+          <PostList/>
 
       </div>
   );

@@ -1,58 +1,70 @@
 "use client"
-import React, {useState} from 'react';
+// components/PostList.tsx
+import { useState, useEffect } from 'react';
 import {Post} from "@/types/Post";
-import {POSTS_PER_PAGE} from "@/config/constant";
-import {getPosts} from "@/components/actions/getPosts";
-import PostCard from "@/components/PostCard";
+import PostCard from './PostCard';
+import { API_URL } from '@/config/constant';
+import { Button } from './ui/button';
 
-type PostListProps = {
-    initialPosts: Post[]
-}
 
-const PostList = ({ initialPosts }: PostListProps) => {
-    const [offset, setOffset] = useState(POSTS_PER_PAGE);
-    const [posts, setPosts] = useState<Post[]>(initialPosts);
-    const [hasMoreData, setHasMoreData] = useState<boolean>(true);
-    const [loading, setLoading] = useState(false)
 
-    const loadMorePosts = async () => {
-        setLoading(true)
-        if(hasMoreData) {
-            const apiPosts = await getPosts(offset, POSTS_PER_PAGE)
-            setLoading(false)
-            if(!apiPosts.length) {
-                setHasMoreData(false)
-            }
+type ApiResponse = {
+  data: {
+    current_page: number;
+    total_posts: number;
+    posts_per_page: number;
+    posts: Post[];
+  };
+};
 
-            setPosts((prevPosts) => [...prevPosts, ...apiPosts]);
-            setOffset((prevOffset) => prevOffset + POSTS_PER_PAGE)
-        }
+const PostList = () => {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPosts, setTotalPosts] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    // Fetch initial posts when the component mounts
+    fetchPosts(currentPage);
+  }, []);
+
+  const fetchPosts = async (page: number) => {
+    setIsLoading(true);
+    try {
+      const response = await fetch(`${API_URL}/get_posts?&site=hoytoba&post_type=post&page=${page}`);
+      const data: ApiResponse = await response.json(); 
+      setPosts((prevPosts) => [...prevPosts, ...data.data.posts]); // Append new posts
+      setTotalPosts(data.data.total_posts); // Set total post count
+    } catch (error) {
+      console.error('Failed to load posts', error);
+    } finally {
+      setIsLoading(false);
     }
-    return (
-        <div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {
-                    initialPosts && initialPosts.length > 0 ?
-                        posts.map((post: Post) => (
-                            <PostCard key={post.id} post={post} />
-                        ))
-                        : <p>Not Post Found</p>
-                }
-            </div>
-            <div className="text-center mt-5">
-                {hasMoreData ? (
-                <button
-                    className="px-4 py-3 bg-slate-500 hover:bg-slate-600 text-slate-50 rounded-md"
-                    onClick={loadMorePosts}
-                >
-                    {loading ? 'Loading...' : 'Load More Posts'}
-                </button>
-                ) : (
-                <p className="text-slate-600">No more posts to load</p>
-                )}
-            </div>
+  };
+
+  const loadMorePosts = () => {
+    const nextPage = currentPage + 1;
+    if (posts.length < totalPosts) {
+      setCurrentPage(nextPage);
+      fetchPosts(nextPage);
+    }
+  };
+
+  return (
+    <div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {posts.map((post) => (
+                <PostCard key={post.id} post={post}/>
+            ))}
+            
         </div>
-    );
+        <div className='text-center mt-5 mb-5'>
+        {posts.length < totalPosts && (
+                <Button onClick={loadMorePosts} disabled={isLoading}>{isLoading ? 'Loading...' : 'Load More Posts'}</Button>
+            )}
+        </div>
+    </div>
+  );
 };
 
 export default PostList;
