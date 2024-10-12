@@ -42,7 +42,16 @@ const AlbumDetailsContent = ({ slug }: { slug: string }) => {
                         <p>Total Tracks: {album.contents.length}</p>
                         <p>Total Duration: {formatDuration(totalDuration)}</p>
                     </div>
-                    <Image src={album.album.thumbnail_url} alt={album.album.title} width={150} height={150}/>
+                    <div>
+                        <Image
+                            src={album.album.thumbnail_url}
+                            alt={album.album.title}
+                            width={150}
+                            height={150}
+                            priority={true}
+                            className="rounded-xl shadow"
+                        />
+                    </div>
                 </div>
             </div>
 
@@ -59,6 +68,25 @@ const AlbumDetailsContent = ({ slug }: { slug: string }) => {
                         </div>
                     </Link>
                 ))}
+            </div>
+
+            {/* Social share link */}
+            <div className="mt-4 mb-4 p-4 shadow border border-gray-300 rounded-xl">
+                <div className="flex-row">
+                    <p className="mb-2">To listen media in <strong>offline,</strong> please download our app:</p>
+                    <div className="flex items-center space-x-2">
+                        <a href={''}>
+                            <img width={200} height={100} src={'https://hoytoba.com/img/google-play-badge.png'}
+                                 alt="hoytoba"/>
+                        </a>
+                        <a href={''}>
+                            <img src={'https://hoytoba.com/img/app-store-badge.png'} width={200} height={100}/>
+                        </a>
+                    </div>
+                    <div className="mt-3">
+                        <a href={''}>Click Here for Desktop App</a>
+                    </div>
+                </div>
             </div>
         </div>
     );
