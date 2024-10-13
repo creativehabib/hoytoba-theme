@@ -90,7 +90,7 @@ export interface NexAndPrevPost {
     has_pdf: boolean,
     view_count: number
 }
-export interface Albums{
+export type Albums ={
     album: {
         id: number,
         slug: string,
@@ -108,10 +108,10 @@ export interface Albums{
         updated_at: string,
         deleted_at: string
     };
-    contents: AlbumContents[];
+    contents: Track[];
 }
 
-export interface AlbumContents {
+export type Track ={
     id: number,
     slug: string,
     title: string,

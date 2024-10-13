@@ -13,6 +13,7 @@ import MusicPlayer from "@/components/MusicPlayer";
 type Track = {
     title: string;
     src: string;
+    stream_url: string; // Add this line
 };
 
 const AlbumDetailsContent = ({ slug }: { slug: string }) => {
@@ -35,11 +36,14 @@ const AlbumDetailsContent = ({ slug }: { slug: string }) => {
     const totalDuration = album.contents.reduce((acc, item) => acc + item.duration, 0);
 
     const handleLinkClick = (track: Track) => {
-        setCurrentTrack({
-            title: track.title,
-            src: track.stream_url,
-        });
-        setIsPlaying(true);
+        if(track.stream_url){
+            setCurrentTrack({
+                title: track.title,
+                src: track.stream_url
+            });
+            setIsPlaying(true)
+        }
+        
     };
 
     const handleNextTrack = () => {
@@ -49,10 +53,12 @@ const AlbumDetailsContent = ({ slug }: { slug: string }) => {
             );
             const nextIndex = (currentIndex + 1) % album.contents.length; // Loop back to the first track
             const nextTrack = album.contents[nextIndex];
-            setCurrentTrack({
-                title: nextTrack.title,
-                src: nextTrack.stream_url,
-            });
+            if (nextTrack.stream_url) { // Ensure stream_url exists
+                setCurrentTrack({
+                    title: nextTrack.title,
+                    src: nextTrack.stream_url,
+                });
+            }
         }
     };
     
