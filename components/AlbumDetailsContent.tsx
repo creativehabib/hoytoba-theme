@@ -39,7 +39,7 @@ const AlbumDetailsContent = ({ slug }: { slug: string }) => {
     };
 
     return (
-        <div className="relative">
+        <div>
             <SettingIcon />
             <div className="album-header">
                 <Link href={`/albums`}>
