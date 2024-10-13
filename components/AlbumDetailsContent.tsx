@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
-import { Albums } from "@/types/Post";
+import { Albums, Track } from "@/types/Post";
 import Image from "next/image";
 import { formatDuration } from "@/lib/utils";
 import fetchAlbumDetails from "@/components/actions/fetchAlbumData";
@@ -13,7 +13,6 @@ import MusicPlayer from "@/components/MusicPlayer";
 type Track = {
     title: string;
     src: string;
-    stream_url: string; // Add this line
 };
 
 const AlbumDetailsContent = ({ slug }: { slug: string }) => {
@@ -36,14 +35,12 @@ const AlbumDetailsContent = ({ slug }: { slug: string }) => {
     const totalDuration = album.contents.reduce((acc, item) => acc + item.duration, 0);
 
     const handleLinkClick = (track: Track) => {
-        if(track.stream_url){
-            setCurrentTrack({
-                title: track.title,
-                src: track.stream_url
-            });
-            setIsPlaying(true)
-        }
-        
+        setCurrentTrack({
+            title: track.title,
+            src: track.stream_url
+        });
+        setIsPlaying(true)
+
     };
 
     const handleNextTrack = () => {
