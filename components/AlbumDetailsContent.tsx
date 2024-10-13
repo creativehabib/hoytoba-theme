@@ -10,10 +10,6 @@ import { ArrowLeft, Music, Play, Pause, Shuffle } from "lucide-react"; // Import
 import Link from "next/link";
 import MusicPlayer from "@/components/MusicPlayer";
 
-type Track = {
-    title: string;
-    src: string;
-};
 
 const AlbumDetailsContent = ({ slug }: { slug: string }) => {
     const [album, setAlbum] = useState<Albums | null>(null);
