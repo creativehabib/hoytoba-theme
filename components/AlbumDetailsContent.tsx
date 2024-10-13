@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
-import { Albums, Track } from "@/types/Post";
+import { Albums } from "@/types/Post";
 import Image from "next/image";
 import { formatDuration } from "@/lib/utils";
 import fetchAlbumDetails from "@/components/actions/fetchAlbumData";
