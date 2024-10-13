@@ -7,6 +7,7 @@ import {Calendar, Clock, Feather} from "lucide-react";
 import SettingIcon from "@/components/SettingIcon";
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
+import { formatDateToBangla } from '@/lib/utils';
 
 const PostDetailsContent = ({ slug }: { slug: string }) => {
     const [posts, setPosts] = useState<SinglePost | null>(null);
@@ -34,11 +35,11 @@ const PostDetailsContent = ({ slug }: { slug: string }) => {
                             <ul className="mt-3 mb-4 flex flex-row items-center justify-center space-x-3 w-full mx-auto">
                                 <li className="flex items-center space-x-2">
                                     <Feather size={18}/>
-                                    <Link href={`/author/${posts.the_post.author.slug}`}>{posts.the_post.author.name}</Link>
+                                    <Link href={`/authors/${posts.the_post.author.slug}`}>{posts.the_post.author.name}</Link>
                                 </li>
                                 <li className="flex items-center space-x-2">
                                     <Calendar size={18}/>
-                                    <span>{posts.the_post.post_date}</span>
+                                    <span>{formatDateToBangla(posts.the_post.post_date)}</span>
                                 </li>
                                 <li className="flex items-center space-x-2"><Clock size={18}/> <span>{posts.the_post.post_estimated} MIN READ</span></li>
                             </ul>
