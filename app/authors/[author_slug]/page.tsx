@@ -16,6 +16,7 @@ const AuthorPage = ({ params }: AuthorPageProps) => {
   const { author_slug } = params; // Access the author_slug directly from params
 
   const [posts, setPosts] = useState<Post[]>([]);
+  const [author, setAuthor] = useState<AuthorPost | null>(null);
   const [totalPosts, setTotalPosts] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -26,10 +27,11 @@ const AuthorPage = ({ params }: AuthorPageProps) => {
     setIsLoading(true);
     try {
       const response = await fetch(`${API_URL}/get_author?&author_slug=${slug}&page=${page}`);
-      const data: AuthorPost = await response.json();
+      const data = await response.json();
 
       if (data && data.data && Array.isArray(data.data.posts)) {
         setPosts(data.data.posts);
+        setAuthor(data.data.author.name);
         setTotalPosts(data.data.total_posts);
       } else {
         setError('No posts found or invalid data structure');
@@ -56,6 +58,7 @@ const AuthorPage = ({ params }: AuthorPageProps) => {
     }
   };
 
+
   // Render loading state or error message
   if (isLoading) {
     return <div>Loading...</div>; // Show loading state
@@ -67,13 +70,14 @@ const AuthorPage = ({ params }: AuthorPageProps) => {
 
   return (
       <div>
-        <h1>Posts by Author: {author_slug} {totalPosts}</h1>
+        <h1>Posts by Author: {author} <strong>({totalPosts})</strong></h1>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {posts.map((post) => (
               <PostCard key={post.id} post={post} /> // Render PostCard component for each post
           ))}
         </div>
-        <div className="text-center mt-5">
+        <div className="text-center mt-5 mb-4">
           {posts.length < totalPosts && (
               <Button onClick={loadMorePosts} disabled={isLoading}>
                 {isLoading ? 'Loading...' : 'Load More Posts'}

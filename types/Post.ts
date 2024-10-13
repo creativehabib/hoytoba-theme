@@ -14,8 +14,7 @@ export interface Post {
     post_estimated: number,
     post_excerpt: string,
     has_pdf: boolean,
-    view_count: string,
-    slug: string
+    view_count: string
 }
 export interface AuthorPost {
     command: string;

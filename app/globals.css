@@ -79,3 +79,5 @@ body {
 .nav-item{
   @apply cursor-pointer hover:text-teal-600;
 }
+
+
