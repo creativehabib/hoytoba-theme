@@ -78,8 +78,8 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd
     };
 
     return (
-        <div className="p-2 px-6 border shadow-md w-full  bg-white border-t-2 border-teal-500 bottom-0 left-0 right-0 fixed z-10">
-            <div className="flex justify-between flex-row items-center space-x-4">
+        <div className="p-2 px-4 sm:px-6 border shadow-md w-full bg-white border-t-2 border-teal-500 bottom-0 left-0 right-0 fixed z-10">
+            <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 sm:space-x-4">
                 <audio
                     ref={audioRef}
                     src={src}
@@ -89,16 +89,16 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd
 
                 {/* Controls */}
                 <div className="flex items-center space-x-3">
-                    <FaStepBackward size={20} className="cursor-pointer"/>
+                    <FaStepBackward size={16} className="cursor-pointer"/>
                     <div onClick={togglePlay} className="cursor-pointer">
-                        {isPlaying ? <FaPause size={20}/> : <FaPlay size={20}/>}
+                        {isPlaying ? <FaPause size={16}/> : <FaPlay size={16}/>}
                     </div>
-                    <FaStepForward size={20} className="cursor-pointer"/>
+                    <FaStepForward size={16} className="cursor-pointer"/>
                 </div>
 
                 {/* Seek Bar */}
-                <div className="flex items-center space-x-3 w-80">
-                    <span className="text-sm">{formatTime(currentTime)}</span>
+                <div className="flex items-center space-x-2 w-full sm:w-1/2 lg:w-1/3">
+                    <span className="text-xs sm:text-sm">{formatTime(currentTime)}</span>
                     <input
                         type="range"
                         min="0"
@@ -107,14 +107,14 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd
                         onChange={handleSeek}
                         className="w-full"
                     />
-                    <span className="text-sm">{formatTime(duration)}</span>
+                    <span className="text-xs sm:text-sm">{formatTime(duration)}</span>
                 </div>
 
                 {/* Track Info */}
-                <div className="flex items-center space-x-3">
-                    <Image src={cover} alt={title} width={50} height={50} className="shadow border rounded"/>
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                    <Image src={cover} alt={title} width={40} height={40} className="shadow border rounded"/>
                     <div>
-                        <h3 className="text-sm font-semibold">{title}</h3>
+                        <h3 className="text-xs sm:text-sm font-semibold">{title}</h3>
                     </div>
                 </div>
             </div>

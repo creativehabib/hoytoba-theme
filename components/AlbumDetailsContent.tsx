@@ -74,27 +74,27 @@ const AlbumDetailsContent = ({ slug }: { slug: string }) => {
     return (
         <div>
             <SettingIcon />
-            <div className="album-header">
+            <div className="album-header mt-6">
                 <Link href={`/albums`}>
-                    <Button variant="outline" className="font-bold">
+                    <Button variant="outline" className="font-bold mb-4">
                         <ArrowLeft /> Back to list
                     </Button>
                 </Link>
-                <div className="flex items-center justify-between">
-                    <div>
-                        <div className="flex space-x-1">
+                <div className="flex sm:flex-row items-center justify-between">
+                    <div className="sm:w-2/3 lg:w-1/2">
+                        <div className="flex space-x-1 items-center">
                             <Music />
-                            <h1 className="text-2xl font-bold">{album.album.title}</h1>
+                            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">{album.album.title}</h1>
                         </div>
-                        <p>Total Tracks: {album.contents.length}</p>
-                        <p>Total Duration: {formatDuration(totalDuration)}</p>
+                        <p className="mt-2 text-sm sm:text-base">Total Tracks: {album.contents.length}</p>
+                        <p className="text-sm sm:text-base">Total Duration: {formatDuration(totalDuration)}</p>
                     </div>
-                    <div>
+                    <div className="mt-4 sm:mt-0">
                         <Image
                             src={album.album.thumbnail_url}
                             alt={album.album.title}
-                            width={150}
-                            height={150}
+                            width={100}
+                            height={100}
                             priority={true}
                             className="rounded-xl shadow"
                         />
@@ -110,7 +110,7 @@ const AlbumDetailsContent = ({ slug }: { slug: string }) => {
                 </Button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5 pb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4 mt-5 pb-4">
                 {album.contents.map((track) => (
                     <div
                         key={track.id}
@@ -126,7 +126,7 @@ const AlbumDetailsContent = ({ slug }: { slug: string }) => {
                                 <Play size={20} /> // Display Play icon for all other tracks
                             )}
                         </button>
-                        <div className="flex-grow pl-2">
+                        <div className="flex-grow overflow-hidden pl-2">
                             <p className={`text-sm font-medium ${currentTrack?.title === track.title && isPlaying ? "font-bold" : ""}`}>
                                 {track.title}
                             </p>
@@ -164,7 +164,7 @@ const AlbumDetailsContent = ({ slug }: { slug: string }) => {
                 </div>
             </div>
             {/* Music player outside the map, playing the selected or random track */}
-            <div className={`flex-row mt-20 ${currentTrack ? "" : "hidden"} sm:mt-30`}>
+            <div className={`flex-row mt-20 md:mt-20 ${currentTrack ? "" : "hidden"}`}>
                 {currentTrack ? (
                     <MusicPlayer 
                     src={currentTrack.src} 
