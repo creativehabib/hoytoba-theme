@@ -6,10 +6,9 @@ interface MusicPlayerProps {
     src: string;
     title: string;
     cover: string;
-    onTrackEnd: () => void; // add a new prop to handle track end
 }
 
-const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd }) => {
+const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover }) => {
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState<number>(0);
@@ -84,7 +83,6 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd
                     ref={audioRef}
                     src={src}
                     onTimeUpdate={handleTimeUpdate}
-                    onEnded={onTrackEnd}
                 />
 
                 {/* Controls */}
