@@ -83,7 +83,7 @@ const AlbumDetailsContent = ({ slug }: { slug: string }) => {
             <SettingIcon />
             <div className="album-header">
                 <Link href={`/albums`}>
-                    <Button variant={"outline"} className="font-bold">
+                    <Button variant="outline" className="font-bold">
                         <ArrowLeft /> Back to list
                     </Button>
                 </Link>
@@ -111,7 +111,7 @@ const AlbumDetailsContent = ({ slug }: { slug: string }) => {
 
             {/* Button for random play */}
             <div className="my-4">
-                <Button variant="primary" onClick={handleRandomPlay} className="flex items-center space-x-2">
+                <Button variant="outline" onClick={handleRandomPlay} className="flex items-center space-x-2">
                     <Shuffle size={20} />
                     <span>Random Play</span>
                 </Button>
