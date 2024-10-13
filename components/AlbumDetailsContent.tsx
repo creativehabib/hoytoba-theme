@@ -10,10 +10,21 @@ import { ArrowLeft, Music, Play, Pause, Shuffle } from "lucide-react"; // Import
 import Link from "next/link";
 import MusicPlayer from "@/components/MusicPlayer";
 
+type Track = {
+    id: string;
+    title: string;
+    stream_url: string;
+    // Other properties (if needed)
+};
+
+type CurrentTrack = {
+    title: string;
+    src: string;
+};
 
 const AlbumDetailsContent = ({ slug }: { slug: string }) => {
     const [album, setAlbum] = useState<Albums | null>(null);
-    const [currentTrack, setCurrentTrack] = useState<Track | null>(null);
+    const [currentTrack, setCurrentTrack] = useState<CurrentTrack | null>(null);
     const [isPlaying, setIsPlaying] = useState<boolean>(false); // Track play/pause status
 
     useEffect(() => {
