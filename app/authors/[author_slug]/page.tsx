@@ -16,7 +16,7 @@ const AuthorPage = ({ params }: AuthorPageProps) => {
   const { author_slug } = params; // Access the author_slug directly from params
 
   const [posts, setPosts] = useState<Post[]>([]);
-  const [author, setAuthor] = useState<AuthorPost | null>(null);
+  const [author, setAuthor] = useState<AuthorPost>(null);
   const [totalPosts, setTotalPosts] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(true);
