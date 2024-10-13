@@ -1,7 +1,7 @@
 // app/authors/[author_slug]/page.tsx
 "use client"
 import { useEffect, useState } from 'react';
-import { Post, AuthorPost } from '@/types/Post';
+import { Post } from '@/types/Post';
 import PostCard from '@/components/PostCard';
 import { Button } from '@/components/ui/button';
 import { API_URL } from '@/config/constant';
@@ -16,7 +16,7 @@ const AuthorPage = ({ params }: AuthorPageProps) => {
   const { author_slug } = params; // Access the author_slug directly from params
 
   const [posts, setPosts] = useState<Post[]>([]);
-  const [author, setAuthor] = useState<AuthorPost[]>([]);
+  const [author, setAuthor] = useState<Post[]>([]);
   const [totalPosts, setTotalPosts] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(true);

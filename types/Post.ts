@@ -18,12 +18,13 @@ export interface Post {
 }
 export interface AuthorPost {
     command: string;
-    author: Author;  // Update according to your author data structure
-    posts_per_page: number;
-    current_page: number;
-    total_posts: number;
-    posts: Post[];
-
+    data: {
+      author: Author;  // Update according to your author data structure
+      posts_per_page: number;
+      current_page: number;
+      total_posts: number;
+      posts: Post[];
+    };
   }
 export interface Author {
     slug: string;
