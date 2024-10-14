@@ -13,7 +13,8 @@ interface MusicPlayerContextProps {
     isPlaying: boolean;
     setTrack: (track: CurrentTrack, trackList: CurrentTrack[]) => void;
     togglePlayPause: () => void;
-    nextTrack: () => void;
+    nextTrack: () => void; // New method for next track
+    previousTrack: () => void; // New method for previous track
 }
 
 const MusicPlayerContext = createContext<MusicPlayerContextProps | undefined>(undefined);
@@ -30,36 +31,37 @@ export const MusicPlayerProvider = ({ children }: { children: ReactNode }) => {
     const [currentTrack, setCurrentTrack] = useState<CurrentTrack | null>(null);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const [trackList, setTrackList] = useState<CurrentTrack[]>([]);
-    const [currentTrackIndex, setCurrentTrackIndex] = useState<number>(0);
+    const [currentIndex, setCurrentIndex] = useState<number>(0); // Track index
 
     const setTrack = (track: CurrentTrack, tracks: CurrentTrack[]) => {
-        if (currentTrack?.src === track.src) {
-            // If the same track is clicked, toggle play/pause
-            setIsPlaying((prev) => !prev);
-        } else {
-            // Set new track and start playing it
-            setCurrentTrack(track);
-            setTrackList(tracks);
-            setCurrentTrackIndex(tracks.findIndex(t => t.src === track.src));
-            setIsPlaying(true); // Autoplay when a new track is selected
-        }
+        setCurrentTrack(track);
+        setTrackList(tracks); // Set the track list
+        setCurrentIndex(tracks.findIndex(t => t.src === track.src)); // Update current index
+        setIsPlaying(true); // Auto-play when a new track is selected
     };
 
     const togglePlayPause = () => {
-        setIsPlaying((prev) => !prev);
+        setIsPlaying(prev => !prev);
     };
 
     const nextTrack = () => {
-        const nextIndex = currentTrackIndex + 1;
-        if (nextIndex < trackList.length) {
-            setCurrentTrack(trackList[nextIndex]);
-            setCurrentTrackIndex(nextIndex);
-            setIsPlaying(true); // Autoplay the next track
-        }
+        if (trackList.length === 0) return; // No tracks to play
+        const nextIndex = (currentIndex + 1) % trackList.length; // Loop to the first track
+        setCurrentIndex(nextIndex);
+        setCurrentTrack(trackList[nextIndex]);
+        setIsPlaying(true); // Automatically play the next track
+    };
+
+    const previousTrack = () => {
+        if (trackList.length === 0) return; // No tracks to play
+        const prevIndex = (currentIndex - 1 + trackList.length) % trackList.length; // Loop to the last track
+        setCurrentIndex(prevIndex);
+        setCurrentTrack(trackList[prevIndex]);
+        setIsPlaying(true); // Automatically play the previous track
     };
 
     return (
-        <MusicPlayerContext.Provider value={{ currentTrack, isPlaying, setTrack, togglePlayPause, nextTrack }}>
+        <MusicPlayerContext.Provider value={{ currentTrack, isPlaying, setTrack, togglePlayPause, nextTrack, previousTrack }}>
             {children}
             {/* MusicPlayer component stays mounted globally */}
             {currentTrack && (
@@ -68,8 +70,10 @@ export const MusicPlayerProvider = ({ children }: { children: ReactNode }) => {
                     title={currentTrack.title}
                     cover={currentTrack.cover}
                     isPlaying={isPlaying}
-                    onTrackEnd={nextTrack}  // Autoplay next track
+                    onTrackEnd={nextTrack} // Go to next track when the current one ends
                     onPlayPauseToggle={togglePlayPause}
+                    onNext={nextTrack} // Pass the next function
+                    onPrevious={previousTrack} // Pass the previous function
                 />
             )}
         </MusicPlayerContext.Provider>

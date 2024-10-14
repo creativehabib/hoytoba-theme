@@ -7,11 +7,13 @@ interface MusicPlayerProps {
     title: string;
     cover: string;
     onTrackEnd: () => void;
-    isPlaying: boolean; // Receive the isPlaying state from parent
-    onPlayPauseToggle: () => void; // Receive a toggle function from parent
+    isPlaying: boolean;
+    onPlayPauseToggle: () => void;
+    onNext: () => void; // Receive the next function from parent
+    onPrevious: () => void; // Receive the previous function from parent
 }
 
-const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd, isPlaying, onPlayPauseToggle }) => {
+const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd, isPlaying, onPlayPauseToggle, onNext, onPrevious }) => {
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const [currentTime, setCurrentTime] = useState<number>(0);
     const [duration, setDuration] = useState<number>(0);
@@ -19,9 +21,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd
     useEffect(() => {
         if (audioRef.current) {
             const updateDuration = () => setDuration(audioRef.current?.duration || 0);
-            if ("addEventListener" in audioRef.current) {
-                audioRef.current.addEventListener('loadedmetadata', updateDuration);
-            }
+            audioRef.current.addEventListener('loadedmetadata', updateDuration);
 
             return () => {
                 audioRef.current?.removeEventListener('loadedmetadata', updateDuration);
@@ -32,31 +32,23 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd
     useEffect(() => {
         if (audioRef.current) {
             if (isPlaying) {
-                if ("play" in audioRef.current) {
-                    audioRef.current.play();
-                }
+                audioRef.current.play();
             } else {
-                if ("pause" in audioRef.current) {
-                    audioRef.current.pause();
-                }
+                audioRef.current.pause();
             }
         }
-    }, [src,isPlaying]);
+    }, [src, isPlaying]);
 
     const handleTimeUpdate = () => {
         if (audioRef.current) {
-            if ("currentTime" in audioRef.current) {
-                setCurrentTime(audioRef.current.currentTime);
-            }
+            setCurrentTime(audioRef.current.currentTime);
         }
     };
 
     const handleSeek = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (audioRef.current) {
             const newTime = parseFloat(event.target.value);
-            if ("currentTime" in audioRef.current) {
-                audioRef.current.currentTime = newTime;
-            }
+            audioRef.current.currentTime = newTime;
             setCurrentTime(newTime);
         }
     };
@@ -74,16 +66,16 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd
                     ref={audioRef}
                     src={src}
                     onTimeUpdate={handleTimeUpdate}
-                    onEnded={onTrackEnd}
+                    onEnded={onTrackEnd} // Calls the onTrackEnd function passed from the provider
                 />
 
                 {/* Controls */}
                 <div className="flex items-center space-x-3">
-                    <FaStepBackward size={16} className="cursor-pointer"/>
+                    <FaStepBackward size={16} className="cursor-pointer" onClick={onPrevious} /> {/* Previous Button */}
                     <div onClick={onPlayPauseToggle} className="cursor-pointer">
                         {isPlaying ? <FaPause size={16}/> : <FaPlay size={16}/> }
                     </div>
-                    <FaStepForward size={16} className="cursor-pointer"/>
+                    <FaStepForward size={16} className="cursor-pointer" onClick={onNext} /> {/* Next Button */}
                 </div>
 
                 {/* Seek Bar */}
