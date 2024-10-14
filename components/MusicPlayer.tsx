@@ -6,12 +6,13 @@ interface MusicPlayerProps {
     src: string;
     title: string;
     cover: string;
-    onTrackEnd: () => void; // add a new prop to handle track end
+    onTrackEnd: () => void;
+    isPlaying: boolean; // Receive the isPlaying state from parent
+    onPlayPauseToggle: () => void; // Receive a toggle function from parent
 }
 
-const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd }) => {
+const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd, isPlaying, onPlayPauseToggle }) => {
     const audioRef = useRef<HTMLAudioElement | null>(null);
-    const [isPlaying, setIsPlaying] = useState(false);
     const [currentTime, setCurrentTime] = useState<number>(0);
     const [duration, setDuration] = useState<number>(0);
 
@@ -30,28 +31,17 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd
 
     useEffect(() => {
         if (audioRef.current) {
-            if ("play" in audioRef.current) {
-                audioRef.current.play();
-            }
-            setIsPlaying(true);
-        }
-    }, [src]);
-
-    const togglePlay = () => {
-        if (!audioRef.current) return;
-
-        if (isPlaying) {
-            if ("pause" in audioRef.current) {
-                audioRef.current.pause();
-            }
-        } else {
-            if ("play" in audioRef.current) {
-                audioRef.current.play();
+            if (isPlaying) {
+                if ("play" in audioRef.current) {
+                    audioRef.current.play();
+                }
+            } else {
+                if ("pause" in audioRef.current) {
+                    audioRef.current.pause();
+                }
             }
         }
-
-        setIsPlaying(!isPlaying);
-    };
+    }, [src,isPlaying]);
 
     const handleTimeUpdate = () => {
         if (audioRef.current) {
@@ -90,8 +80,8 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd
                 {/* Controls */}
                 <div className="flex items-center space-x-3">
                     <FaStepBackward size={16} className="cursor-pointer"/>
-                    <div onClick={togglePlay} className="cursor-pointer">
-                        {isPlaying ? <FaPause size={16}/> : <FaPlay size={16}/>}
+                    <div onClick={onPlayPauseToggle} className="cursor-pointer">
+                        {isPlaying ? <FaPause size={16}/> : <FaPlay size={16}/> }
                     </div>
                     <FaStepForward size={16} className="cursor-pointer"/>
                 </div>

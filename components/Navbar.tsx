@@ -38,7 +38,7 @@ const Navbar = () => {
                     <div className="hidden lg:flex flex-row items-center text-gray-600 font-bold space-x-5">
                         <ul className="flex flex-row items-center space-x-5">
                             <li className="nav-item"><Link href={'/'}>মূলপাতা</Link></li>
-                            <li className="nav-item">মিডিয়া</li>
+                            <li className="nav-item"><Link href={'/albums'}>মিডিয়া</Link></li>
                             <li className="nav-item">দেওয়াল চিত্র</li>
                             <li className="nav-item">ইতিহাসের পাতা</li>
                             <li className="nav-item">ছড়ানো মুক্তা</li>
@@ -73,7 +73,7 @@ const Navbar = () => {
                     </div>
                     <ul className="flex flex-col space-y-3 text-gray-600 font-bold p-4">
                         <li className="nav-item"><Link href={'/'}>মূলপাতা</Link></li>
-                        <li className="nav-item">মিডিয়া</li>
+                        <li className="nav-item"><Link href={'/albums'}>মিডিয়া</Link></li>
                         <li className="nav-item">দেওয়াল চিত্র</li>
                         <li className="nav-item">ইতিহাসের পাতা</li>
                         <li className="nav-item">ছড়ানো মুক্তা</li>

@@ -6,19 +6,14 @@ import { formatDuration } from "@/lib/utils";
 import fetchAlbumDetails from "@/components/actions/fetchAlbumData";
 import SettingIcon from "@/components/SettingIcon";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Music, Play, Pause, Shuffle } from "lucide-react"; // Import Pause icon
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import MusicPlayer from "@/components/MusicPlayer";
-
-type CurrentTrack = {
-    title: string;
-    src: string;
-};
+import {FaMusic, FaPause, FaPlay} from "react-icons/fa";
+import { useMusicPlayer } from '@/context/MusicPlayerContext'; // Import the global music player context
 
 const AlbumDetailsContent = ({ slug }: { slug: string }) => {
     const [album, setAlbum] = useState<Albums | null>(null);
-    const [currentTrack, setCurrentTrack] = useState<CurrentTrack | null>(null);
-    const [isPlaying, setIsPlaying] = useState<boolean>(false); // Track play/pause status
+    const { setTrack, isPlaying, currentTrack, togglePlayPause } = useMusicPlayer();  // Access global music player functions
 
     useEffect(() => {
         const getAlbumDetails = async () => {
@@ -34,41 +29,27 @@ const AlbumDetailsContent = ({ slug }: { slug: string }) => {
 
     const totalDuration = album.contents.reduce((acc, item) => acc + item.duration, 0);
 
-    const handleLinkClick = (track: Track) => {
-        setCurrentTrack({
+    const handleTrackClick = (track: Track) => {
+        // Set the track and provide the full track list
+        const trackList = album.contents.map((track) => ({
             title: track.title,
-            src: track.stream_url
-        });
-        setIsPlaying(true)
+            src: track.stream_url,
+            cover: album.album.thumbnail_url,
+        }));
 
-    };
-
-    const handleNextTrack = () => {
-        if (album && currentTrack) {
-            const currentIndex = album.contents.findIndex(
-                (track) => track.title === currentTrack.title
+        if(currentTrack?.src === track.stream_url){
+            togglePlayPause();
+        } else {
+            setTrack(
+                {
+                    title: track.title,
+                    src: track.stream_url,
+                    cover: album.album.thumbnail_url,
+                },
+                trackList // Pass the entire tracklist
             );
-            const nextIndex = (currentIndex + 1) % album.contents.length; // Loop back to the first track
-            const nextTrack = album.contents[nextIndex];
-            if (nextTrack.stream_url) { // Ensure stream_url exists
-                setCurrentTrack({
-                    title: nextTrack.title,
-                    src: nextTrack.stream_url,
-                });
-            }
         }
-    };
-    
-
-    // Function to play a random track
-    const handleRandomPlay = () => {
-        const randomIndex = Math.floor(Math.random() * album.contents.length);
-        const randomTrack = album.contents[randomIndex];
-        setCurrentTrack({
-            title: randomTrack.title,
-            src: randomTrack.stream_url,
-        });
-        setIsPlaying(true); // Automatically play the random track
+        
     };
 
     return (
@@ -77,13 +58,13 @@ const AlbumDetailsContent = ({ slug }: { slug: string }) => {
             <div className="album-header mt-6">
                 <Link href={`/albums`}>
                     <Button variant="outline" className="font-bold mb-4">
-                        <ArrowLeft /> Back to list
+                        <ArrowLeft /> <span>Back to Album</span>
                     </Button>
                 </Link>
                 <div className="flex sm:flex-row items-center justify-between">
                     <div className="sm:w-2/3 lg:w-1/2">
                         <div className="flex space-x-1 items-center">
-                            <Music />
+                            <FaMusic size={20}/>
                             <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">{album.album.title}</h1>
                         </div>
                         <p className="mt-2 text-sm sm:text-base">Total Tracks: {album.contents.length}</p>
@@ -102,37 +83,34 @@ const AlbumDetailsContent = ({ slug }: { slug: string }) => {
                 </div>
             </div>
 
-            {/* Button for random play */}
-            <div className="my-4">
-                <Button variant="outline" onClick={handleRandomPlay} className="flex items-center space-x-2">
-                    <Shuffle size={20} />
-                    <span>Random Play</span>
-                </Button>
-            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 md:grid-cols-2 gap-4 mt-5 pb-4">
+            {album.contents.map((track) => {
+                    const isCurrentTrackPlaying = currentTrack?.src === track.stream_url && isPlaying;
 
-            <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4 mt-5 pb-4">
-                {album.contents.map((track) => (
-                    <div
-                        key={track.id}
-                        onClick={() => handleLinkClick(track)}
-                        className={`flex justify-between items-center shadow p-2 border border-gray-300 rounded-xl hover:bg-sky-100 cursor-pointer ${
-                            currentTrack?.title === track.title && isPlaying ? "bg-sky-200" : ""
-                        }`} // Highlight the selected track
-                    >
-                        <button className="flex-none rounded-full flex items-center justify-center text-gray-500">
-                            {currentTrack?.title === track.title && isPlaying ? (
-                                <Pause size={20} /> // Display Pause icon if the current track is playing
-                            ) : (
-                                <Play size={20} /> // Display Play icon for all other tracks
-                            )}
-                        </button>
-                        <div className="flex-grow overflow-hidden pl-2">
-                            <p className={`text-sm font-medium ${currentTrack?.title === track.title && isPlaying ? "font-bold" : ""}`}>
-                                {track.title}
-                            </p>
+                    return (
+                        <div
+                            key={track.id}
+                            className={`flex items-center justify-between shadow pl-4 p-2 border rounded-lg border-gray-300 cursor-pointer hover:bg-blue-100 ${
+                                currentTrack?.title === track.title && isPlaying ? "bg-blue-100" : ""
+                            }`}
+                        >
+                            {/* Play/Pause Button */}
+                            <div onClick={() => handleTrackClick(track)} className="text-gray-700">
+                                {isCurrentTrackPlaying ? (
+                                    <FaPause size={13}/>
+                                ) : (
+                                    <FaPlay size={13} />
+                                )}
+                            </div>
+
+                            {/* Track Info */}
+                            <div className="flex-grow overflow-hidden pl-2" onClick={() => handleTrackClick(track)}>
+                                <p className={`text-sm font-medium ${currentTrack?.title === track.title && isPlaying ? "font-bold" : ""}`}>{track.title}</p>
+                            </div>
+
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
             {/* Social share link */}
             <div className="mt-4 mb-4 p-4 shadow border border-gray-300 rounded-xl">
@@ -162,17 +140,6 @@ const AlbumDetailsContent = ({ slug }: { slug: string }) => {
                         <a href={""}>Click Here for Desktop App</a>
                     </div>
                 </div>
-            </div>
-            {/* Music player outside the map, playing the selected or random track */}
-            <div className={`flex-row mt-20 md:mt-20 ${currentTrack ? "" : "hidden"}`}>
-                {currentTrack ? (
-                    <MusicPlayer 
-                    src={currentTrack.src} 
-                    title={currentTrack.title} 
-                    cover={album.album.thumbnail_url} 
-                    onTrackEnd={handleNextTrack}  // Call handleNextTrack when the current track ends
-                    />
-                ) : ''}
             </div>
         </div>
     );
