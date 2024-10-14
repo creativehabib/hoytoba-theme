@@ -4,6 +4,8 @@ import "./globals.css";
 import React, {Suspense} from "react";
 import Loading from "@/app/loading";
 import Navbar from "@/components/Navbar";
+import { MusicPlayerProvider, useMusicPlayer } from '@/context/MusicPlayerContext';
+import MusicPlayer from '@/components/MusicPlayer';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,11 +33,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
        suppressHydrationWarning={true}>
+        <MusicPlayerProvider>
+
+        
       <Navbar/>
       <main className="container max-w-7xl mx-auto px-4 mt-24 lg:px-10 sm:px-4 md:px-8">
         <Suspense fallback={<Loading/>}>{children}</Suspense>
       </main>
+      </MusicPlayerProvider>
       </body>
     </html>
   );
 }
+
+
