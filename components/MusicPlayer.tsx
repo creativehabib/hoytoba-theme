@@ -9,8 +9,8 @@ interface MusicPlayerProps {
     onTrackEnd: () => void;
     isPlaying: boolean;
     onPlayPauseToggle: () => void;
-    onNext: () => void; // Receive the next function from parent
-    onPrevious: () => void; // Receive the previous function from parent
+    onNext: () => void;
+    onPrevious: () => void;
 }
 
 const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd, isPlaying, onPlayPauseToggle, onNext, onPrevious }) => {
@@ -60,7 +60,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd
     };
 
     return (
-        <div className="p-2 px-4 sm:px-6 border shadow-md w-full bg-white border-t-2 border-teal-500 bottom-0 left-0 right-0 fixed z-10">
+        <div className="p-2 px-4 sm:px-6 border shadow-md w-full bg-white border-t-2 border-teal-500 sticky bottom-0 z-10">
             <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 sm:space-x-4">
                 <audio
                     ref={audioRef}
