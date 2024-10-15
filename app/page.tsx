@@ -4,6 +4,20 @@ import PostList from "@/components/PostList";
 import {getAlbums} from "@/components/actions/getAlbums";
 import AlbumCard from "@/components/AlbumCard";
 import SettingIcon from "@/components/SettingIcon";
+import {Metadata} from "next";
+
+
+// Page-specific metadata
+export const metadata: Metadata = {
+    title: "মূলপাতা - Hoytoba",
+    description: "Learn more about Hoytoba and our mission to connect music lovers.",
+    openGraph: {
+        title: "মূলপাতা - Hoytoba",
+        description: "Explore Hoytoba's history and vision.",
+        url: "https://hoytoba.vercel.app/",
+    },
+};
+
 
 export default async function Home() {
     const initialAlbum = await getAlbums();

@@ -1,6 +1,19 @@
 import React from 'react';
 import Link from "next/link";
 import {FaFacebook, FaTwitter} from "react-icons/fa";
+import {Metadata} from "next";
+
+// Page-specific metadata
+export const metadata: Metadata = {
+    title: "Contact Us - Hoytoba",
+    description: "Learn more about Hoytoba and our mission to connect music lovers.",
+    openGraph: {
+        title: "Contact Us - Hoytoba",
+        description: "Explore Hoytoba's history and vision.",
+        url: "https://hoytoba.vercel.app/contact",
+    },
+};
+
 
 const Contact = () => {
     return (
