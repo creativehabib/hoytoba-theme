@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { FaPlay, FaPause, FaStepForward, FaStepBackward } from 'react-icons/fa';
+import {FaPlay, FaPause, FaStepForward, FaStepBackward, FaVolumeUp, FaVolumeMute} from 'react-icons/fa';
 import Image from "next/image";
 
 interface MusicPlayerProps {
@@ -17,6 +17,8 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const [currentTime, setCurrentTime] = useState<number>(0);
     const [duration, setDuration] = useState<number>(0);
+    const [volume, setVolume] = useState<number>(1); // Add state for volume
+    const [isMuted, setIsMuted] = useState<boolean>(false); // Mute state
 
     useEffect(() => {
         if (audioRef.current) {
@@ -39,6 +41,12 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd
         }
     }, [src, isPlaying]);
 
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.volume = isMuted ? 0 : volume; // Update volume or mute audio
+        }
+    }, [volume, isMuted]);
+
     const handleTimeUpdate = () => {
         if (audioRef.current) {
             setCurrentTime(audioRef.current.currentTime);
@@ -51,6 +59,16 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd
             audioRef.current.currentTime = newTime;
             setCurrentTime(newTime);
         }
+    };
+
+    const handleVolumeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newVolume = parseFloat(event.target.value);
+        setVolume(newVolume);
+        setIsMuted(false); // Unmute when the volume slider is used
+    };
+
+    const toggleMute = () => {
+        setIsMuted((prev) => !prev); // Toggle mute state
     };
 
     const formatTime = (time: number) => {
@@ -90,6 +108,22 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd
                         className="w-full"
                     />
                     <span className="text-xs sm:text-sm">{formatTime(duration)}</span>
+                </div>
+
+                {/* Volume Control */}
+                <div className="flex items-center space-x-2">
+                    <div onClick={toggleMute} className="cursor-pointer">
+                        {isMuted ? <FaVolumeMute size={16} /> : <FaVolumeUp size={16} />} {/* Mute/Unmute Toggle */}
+                    </div>
+                    <input
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        value={isMuted ? 0 : volume}
+                        onChange={handleVolumeChange}
+                        className="w-full"
+                    />
                 </div>
 
                 {/* Track Info */}
