@@ -1,6 +1,30 @@
 import type { Config } from "tailwindcss";
 
-const config: Config = {
+const config: {
+	plugins: { handler: () => void }[];
+	theme: {
+		extend: {
+			borderRadius: { md: string; sm: string; lg: string };
+			colors: {
+				border: string;
+				ring: string;
+				popover: { foreground: string; DEFAULT: string };
+				foreground: string;
+				accent: { foreground: string; DEFAULT: string };
+				destructive: { foreground: string; DEFAULT: string };
+				secondary: { foreground: string; DEFAULT: string };
+				input: string;
+				background: string;
+				muted: { foreground: string; DEFAULT: string };
+				chart: { "1": string; "2": string; "3": string; "4": string; "5": string };
+				card: { foreground: string; DEFAULT: string };
+				primary: { foreground: string; DEFAULT: string }
+			}
+		}
+	};
+	darkMode: string[];
+	content: string[]
+} = {
     darkMode: ["class"],
     content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -58,6 +82,8 @@ const config: Config = {
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+	  require("tailwindcss-animate")
+  ],
 };
 export default config;

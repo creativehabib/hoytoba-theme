@@ -46,7 +46,7 @@ const AlbumDetailsContent = ({ slug }: { slug: string }) => {
                     src: track.stream_url,
                     cover: album.album.thumbnail_url,
                 },
-                trackList // Pass the entire tracklist
+                trackList // Pass the entire track list
             );
         }
         

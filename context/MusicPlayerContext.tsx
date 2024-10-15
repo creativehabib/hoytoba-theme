@@ -37,7 +37,7 @@ export const MusicPlayerProvider = ({ children }: { children: ReactNode }) => {
         setCurrentTrack(track);
         setTrackList(tracks); // Set the track list
         setCurrentIndex(tracks.findIndex(t => t.src === track.src)); // Update current index
-        setIsPlaying(true); // Auto-play when a new track is selected
+        setIsPlaying(true); // Autoplay when a new track is selected
     };
 
     const togglePlayPause = () => {

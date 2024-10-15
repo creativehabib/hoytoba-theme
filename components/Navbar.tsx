@@ -46,6 +46,7 @@ const Navbar = () => {
                             <li className="nav-item">প্যারেন্টীং</li>
                             <li className="nav-item">কবিতা</li>
                             <li className="nav-item">তালিকাসমূহ</li>
+                            <li className="nav-item"><Link href={'/contact'}>যোগাযোগ</Link></li>
                         </ul>
                     </div>
 
@@ -81,6 +82,7 @@ const Navbar = () => {
                         <li className="nav-item">প্যারেন্টীং</li>
                         <li className="nav-item">কবিতা</li>
                         <li className="nav-item">তালিকাসমূহ</li>
+                        <li className="nav-item"><Link href={'/contact'}>যোগাযোগ</Link></li>
                     </ul>
                 </div>
 
