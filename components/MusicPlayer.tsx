@@ -160,7 +160,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd
 
                 <div>
                     {/* Previous, Play/Pause, Next */}
-                    <div className="flex items-center space-x-4 sm:space-x-4 md:space-x-8 lg:space-x-8">
+                    <div className="flex items-center space-x-6 sm:space-x-6 md:space-x-8 lg:space-x-8">
                         {/* More Options */}
                         <FaEllipsisH size={16} className="cursor-pointer" />
 
