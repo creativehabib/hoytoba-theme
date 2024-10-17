@@ -130,20 +130,20 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd
             {/* Seek Bar inside the border-t */}
             <div className="">
             <input
-        type="range"
-        min="0"
-        max={duration}
-        value={currentTime}
-        onChange={handleSeek}
-        className="absolute top-0 left-0 w-full h-1 appearance-none focus:outline-none"
-        style={{
-            background: `linear-gradient(to right, 
-                #0d9488 ${currentTime / duration * 100}%,  /* Darker color for played part */
-                #e5e7eb ${currentTime / duration * 100}% 100%)`,  /* Lighter color for unplayed part */
-            transform: 'translateY(-50%)',
-        }}
-    />
-                
+                type="range"
+                min="0"
+                max={duration}
+                value={currentTime}
+                onChange={handleSeek}
+                className="absolute top-0 left-0 w-full h-1 appearance-none focus:outline-none"
+                style={{
+                    background: `linear-gradient(to right, 
+                        #0d9488 ${currentTime / duration * 100}%,  /* Darker color for played part */
+                        #e5e7eb ${currentTime / duration * 100}% 100%)`,  /* Lighter color for unplayed part */
+                    transform: 'translateY(-50%)',
+                }}
+            />
+                        
             </div>
             
             <audio
@@ -160,7 +160,7 @@ const MusicPlayer: React.FC<MusicPlayerProps> = ({ src, title, cover, onTrackEnd
 
                 <div>
                     {/* Previous, Play/Pause, Next */}
-                    <div className="flex items-center space-x-8">
+                    <div className="flex items-center space-x-4 sm:space-x-4 md:space-x-8 lg:space-x-8">
                         {/* More Options */}
                         <FaEllipsisH size={16} className="cursor-pointer" />
 
