@@ -31,7 +31,7 @@ const PostList = () => {
   const fetchPosts = async (page: number) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${API_URL}/get_posts?&site=hoytoba&post_type=post&page=${page}`);
+      const response = await fetch(`${API_URL}/get_posts?&post_type=post&page=${page}`);
       const data: ApiResponse = await response.json(); 
       setPosts((prevPosts) => [...prevPosts, ...data.data.posts]); // Append new posts
       setTotalPosts(data.data.total_posts); // Set total post count
